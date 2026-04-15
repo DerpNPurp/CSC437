@@ -1,0 +1,15 @@
+:root {
+  --color-background-page: #FAF9F6;
+  --color-background-header: #A01F23;
+  --color-text: #1B1212;
+  --color-text-inverted: #FAF9F6;
+  --color-accent: #A01F23;
+  --color-surface: #F5E6E8;
+  --color-border: rgba(27, 18, 18, 0.08);
+
+  --font-body: Arial, sans-serif;
+
+  --space-small: 12px;
+  --space-medium: 16px;
+  --space-large: 20px;
+}
