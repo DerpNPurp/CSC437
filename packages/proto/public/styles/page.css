@@ -1,63 +1,80 @@
 body {
-    background-color: var(--color-background-page);
-    color: var(--color-text);
-    font-family: var(--font-body);
-    margin: 0;
-  }
-  
-  header {
-    background-color: var(--color-background-header);
-    color: var(--color-text-inverted);
-    padding: var(--space-medium);
-  }
-  
-  header h1 {
-    margin: 0;
-    color: var(--color-text-inverted);
-  }
-  
-  nav a {
-    color: var(--color-text-inverted);
-    margin-right: var(--space-small);
-    text-decoration: none;
-  }
-  
-  nav a:hover {
-    text-decoration: underline;
-  }
-  
-  main {
-    padding: var(--space-large);
-  }
-  
-  section {
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-border);
-    padding: var(--space-medium);
-    margin-bottom: var(--space-medium);
-  }
-  
-  h1, h2 {
-    font-family: var(--font-display);
-  }
+  background-color: var(--color-background-page);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
 
-  h1 {
-    font-weight: 400;
-  }
+header {
+  background-color: var(--color-background-header);
+  color: var(--color-text-inverted);
+  padding: var(--space-medium);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  h2 {
-    color: var(--color-accent);
-    font-weight: 400;
-  }
+header h1 {
+  color: var(--color-text-inverted);
+  font-size: 1rem;
+}
 
-  svg.icon {
-    display: inline;
-    height: 2em;
-    width: 2em;
-    vertical-align: top;
-    fill: currentColor;
-  }
-  
-  a {
-    color: var(--color-accent);
-  }
+nav {
+  display: flex;
+  gap: var(--space-small);
+  border-left: 2px solid rgba(250, 249, 246, 0.3);
+  padding-left: var(--space-small);
+}
+
+nav a {
+  color: var(--color-text-inverted);
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: var(--space-large);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-medium);
+}
+
+section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: var(--space-medium);
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+h2 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: var(--space-small);
+}
+
+svg.icon {
+  display: inline;
+  height: 2em;
+  width: 2em;
+  vertical-align: top;
+  fill: currentColor;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+section ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-small);
+}
