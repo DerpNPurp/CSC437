@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <symbol id="icon-pc" viewBox="0 0 100 100">
+      <!-- monitor outline -->
+      <path fill-rule="evenodd" d="M5 8 L95 8 L95 70 L5 70 Z M12 15 L88 15 L88 63 L12 63 Z"/>
+      <!-- stand -->
+      <rect x="44" y="70" width="12" height="14"/>
+      <!-- base -->
+      <rect x="28" y="82" width="44" height="10" rx="3"/>
+    </symbol>
+    <symbol id="icon-mobile" viewBox="0 0 100 100">
+      <!-- phone body outline -->
+      <path fill-rule="evenodd" d="M28 3 Q18 3 18 13 L18 87 Q18 97 28 97 L72 97 Q82 97 82 87 L82 13 Q82 3 72 3 Z M25 20 L75 20 L75 78 L25 78 Z"/>
+      <!-- home button -->
+      <circle cx="50" cy="88" r="5"/>
+    </symbol>
+  </defs>
+</svg>
