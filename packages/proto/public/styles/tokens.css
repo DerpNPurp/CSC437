@@ -7,7 +7,8 @@
   --color-surface: #F5E6E8;
   --color-border: rgba(27, 18, 18, 0.08);
 
-  --font-body: Arial, sans-serif;
+  --font-body: 'Lato', Arial, Helvetica, sans-serif;
+  --font-display: 'Oswald', 'Arial Narrow', Impact, sans-serif;
 
   --space-small: 12px;
   --space-medium: 16px;

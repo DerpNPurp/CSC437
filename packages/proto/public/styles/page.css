@@ -37,8 +37,25 @@ body {
     margin-bottom: var(--space-medium);
   }
   
+  h1, h2 {
+    font-family: var(--font-display);
+  }
+
+  h1 {
+    font-weight: 300;
+  }
+
   h2 {
     color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  svg.icon {
+    display: inline;
+    height: 2em;
+    width: 2em;
+    vertical-align: top;
+    fill: currentColor;
   }
   
   a {
