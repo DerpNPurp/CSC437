@@ -14,6 +14,9 @@ export class GameInfoListElement extends HTMLElement {
       vertical-align: top;
       fill: currentColor;
     }
+    a {
+      color: var(--color-accent);
+    }
   `;
 
   constructor() {
