@@ -1,7 +1,8 @@
 import { html, shadow } from "@unbndl/html";
 
 function renderPlatform(p) {
-  return html`<a href=${p.href}><svg class="icon"><use href="/icons/platforms.svg#${p.icon}"></use></svg> ${p.name}</a>`;
+  const iconHref = `/icons/platforms.svg#${p.icon}`;
+  return html`<a href=${p.href}><svg class="icon"><use href=${iconHref}></use></svg> ${p.name}</a>`;
 }
 
 export class GameInfoListElement extends HTMLElement {
@@ -35,10 +36,11 @@ export class GameInfoListElement extends HTMLElement {
 
   static render(data) {
     const { company, companyHref, genre, genreHref, genreIcon, rating, ratingHref, platforms } = data;
+    const genreIconHref = `/icons/genres.svg#${genreIcon}`;
     return html`
       <game-info>
         <span slot="company"><a href=${companyHref}>${company}</a></span>
-        <span slot="genre"><a href=${genreHref}><svg class="icon"><use href="/icons/genres.svg#${genreIcon}"></use></svg> ${genre}</a></span>
+        <span slot="genre"><a href=${genreHref}><svg class="icon"><use href=${genreIconHref}></use></svg> ${genre}</a></span>
         <span slot="rating"><a href=${ratingHref}>${rating}</a></span>
         <span slot="platforms">${platforms.map(renderPlatform)}</span>
       </game-info>
