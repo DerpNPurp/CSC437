@@ -23,15 +23,7 @@
 
   <main>
     <h1>Hearthstone</h1>
-    <game-info>
-      <span slot="company"><a href="../companies/blizzard.html">Blizzard Entertainment</a></span>
-      <span slot="genre"><a href="../genres/card.html"><svg class="icon"><use href="/icons/genres.svg#icon-card" /></svg> Card Game</a></span>
-      <span slot="rating"><a href="../ratings/teen.html">Teen</a></span>
-      <span slot="platforms">
-        <a href="../platforms/pc.html"><svg class="icon"><use href="/icons/platforms.svg#icon-pc" /></svg> PC</a>,
-        <a href="../platforms/mobile.html"><svg class="icon"><use href="/icons/platforms.svg#icon-mobile" /></svg> Mobile</a>
-      </span>
-    </game-info>
+    <game-info-list src="/data/hearthstone.json"></game-info-list>
 
     <p class="back-link"><a href="../index.html">← Back to Home</a></p>
   </main>
@@ -40,9 +32,11 @@
   <script type="module">
     import { define } from "@unbndl/html";
     import { GameInfoElement } from "/js/game-info.js";
+    import { GameInfoListElement } from "/js/game-info-list.js";
 
     define({
-      "game-info": GameInfoElement
+      "game-info": GameInfoElement,
+      "game-info-list": GameInfoListElement
     });
   </script>
 </body>

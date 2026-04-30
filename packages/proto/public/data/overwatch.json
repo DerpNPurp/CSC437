@@ -1,0 +1,12 @@
+{
+  "company": "Blizzard Entertainment",
+  "companyHref": "/companies/blizzard.html",
+  "genre": "Shooter",
+  "genreHref": "/genres/shooter.html",
+  "genreIcon": "icon-shooter",
+  "rating": "Teen",
+  "ratingHref": "/ratings/teen.html",
+  "platforms": [
+    { "name": "PC", "href": "/platforms/pc.html", "icon": "icon-pc" }
+  ]
+}
