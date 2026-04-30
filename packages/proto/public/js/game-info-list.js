@@ -1,4 +1,4 @@
-import { html, shadow } from "@unbndl/html";
+import { html, css, shadow } from "@unbndl/html";
 
 function renderPlatform(p) {
   const iconHref = `/icons/platforms.svg#${p.icon}`;
@@ -6,9 +6,19 @@ function renderPlatform(p) {
 }
 
 export class GameInfoListElement extends HTMLElement {
+  static styles = css`
+    svg.icon {
+      display: inline;
+      height: 2em;
+      width: 2em;
+      vertical-align: top;
+      fill: currentColor;
+    }
+  `;
+
   constructor() {
     super();
-    shadow(this);
+    shadow(this).styles(GameInfoListElement.styles);
   }
 
   static observedAttributes = ["src"];
