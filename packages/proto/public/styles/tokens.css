@@ -14,3 +14,13 @@
   --space-medium: 16px;
   --space-large: 20px;
 }
+
+body.dark-mode {
+  --color-background-page: #1a1212;
+  --color-background-header: #5a0f12;
+  --color-text: #f0ede8;
+  --color-text-inverted: #1b1212;
+  --color-accent: #e05555;
+  --color-surface: #2a1515;
+  --color-border: rgba(240, 237, 232, 0.15);
+}
