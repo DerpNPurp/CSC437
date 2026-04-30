@@ -72,7 +72,7 @@ svg.icon {
   fill: currentColor;
 }
 
-a {
+main a {
   color: var(--color-accent);
 }
 
