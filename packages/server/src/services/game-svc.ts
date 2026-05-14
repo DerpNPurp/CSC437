@@ -29,4 +29,24 @@ function get(id: string): Promise<Game | undefined> {
     });
 }
 
-export default { index, get };
+function create(json: Game): Promise<Game> {
+  const t = new GameModel(json);
+  return t.save();
+}
+
+function update(id: String, game: Game): Promise<Game | undefined> {
+  return GameModel.findByIdAndUpdate(id, game, { new: true }).then(
+    (updated) => {
+      if (!updated) throw `${id} not updated`;
+      else return updated as Game;
+    }
+  );
+}
+
+function remove(id: String): Promise<void> {
+  return GameModel.findByIdAndDelete(id).then((deleted) => {
+    if (!deleted) throw `${id} not deleted`;
+  });
+}
+
+export default { index, get, create, update, remove };
