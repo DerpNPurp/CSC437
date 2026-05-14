@@ -1,35 +1,32 @@
+import { Schema, model } from "mongoose";
 import { Game } from "../models/index.ts";
 
-const games: { [key: string]: Game } = {
-  overwatch: {
-    company: "Blizzard Entertainment",
-    companyHref: "/companies/blizzard.html",
-    genre: "Shooter",
-    genreHref: "/genres/shooter.html",
-    genreIcon: "icon-shooter",
-    rating: "Teen",
-    ratingHref: "/ratings/teen.html",
-    platforms: [
-      { name: "PC", href: "/platforms/pc.html", icon: "icon-pc" }
-    ]
+const gameSchema = new Schema<Game>(
+  {
+    company: String,
+    companyHref: String,
+    genre: String,
+    genreHref: String,
+    genreIcon: String,
+    rating: String,
+    ratingHref: String,
+    platforms: [{ name: String, href: String, icon: String }]
   },
-  hearthstone: {
-    company: "Blizzard Entertainment",
-    companyHref: "/companies/blizzard.html",
-    genre: "Card Game",
-    genreHref: "/genres/card.html",
-    genreIcon: "icon-card",
-    rating: "Teen",
-    ratingHref: "/ratings/teen.html",
-    platforms: [
-      { name: "PC", href: "/platforms/pc.html", icon: "icon-pc" },
-      { name: "Mobile", href: "/platforms/mobile.html", icon: "icon-mobile" }
-    ]
-  }
-};
+  { collection: "games" }
+);
 
-function get(id: string): Game {
-  return games[id];
+const GameModel = model<Game>("Game", gameSchema);
+
+function index(): Promise<Game[]> {
+  return GameModel.find();
 }
 
-export default { get };
+function get(id: string): Promise<Game | undefined> {
+  return GameModel.findById(id)
+    .then((game) => game ?? undefined)
+    .catch(() => {
+      throw `${id} Not Found`;
+    });
+}
+
+export default { index, get };
