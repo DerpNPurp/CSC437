@@ -10,51 +10,69 @@
   <link rel="stylesheet" href="/styles/tokens.css" />
   <link rel="stylesheet" href="/styles/page.css" />
   <link rel="stylesheet" href="/styles/index-layout.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "@unbndl/auth": "https://unpkg.com/@unbndl/auth",
+      "@unbndl/html": "https://unpkg.com/@unbndl/html",
+      "@unbndl/view": "https://unpkg.com/@unbndl/view"
+    }
+  }
+  </script>
+  <script type="module">
+    import { define } from "@unbndl/html";
+    import { Auth } from "@unbndl/auth";
+    import { HeaderElement } from "/js/header.js";
+
+    define({
+      "auth-provider": Auth.Provider,
+      "app-header": HeaderElement
+    });
+  </script>
 </head>
 <body>
+  <auth-provider>
+    <app-header></app-header>
 
-  <header></header>
+    <main>
+      <section>
+        <h2>Games</h2>
+        <ul>
+          <li><a href="games/overwatch.html">Overwatch</a></li>
+          <li><a href="games/hearthstone.html">Hearthstone</a></li>
+        </ul>
+      </section>
 
-  <main>
-    <section>
-      <h2>Games</h2>
-      <ul>
-        <li><a href="games/overwatch.html">Overwatch</a></li>
-        <li><a href="games/hearthstone.html">Hearthstone</a></li>
-      </ul>
-    </section>
+      <section>
+        <h2>Company</h2>
+        <ul>
+          <li><a href="companies/blizzard.html">Blizzard Entertainment</a></li>
+        </ul>
+      </section>
 
-    <section>
-      <h2>Company</h2>
-      <ul>
-        <li><a href="companies/blizzard.html">Blizzard Entertainment</a></li>
-      </ul>
-    </section>
+      <section>
+        <h2>Genres</h2>
+        <ul>
+          <li><a href="genres/shooter.html"><svg class="icon"><use href="/icons/genres.svg#icon-shooter" /></svg> Shooter</a></li>
+          <li><a href="genres/card.html"><svg class="icon"><use href="/icons/genres.svg#icon-card" /></svg> Card Game</a></li>
+        </ul>
+      </section>
 
-    <section>
-      <h2>Genres</h2>
-      <ul>
-        <li><a href="genres/shooter.html"><svg class="icon"><use href="/icons/genres.svg#icon-shooter" /></svg> Shooter</a></li>
-        <li><a href="genres/card.html"><svg class="icon"><use href="/icons/genres.svg#icon-card" /></svg> Card Game</a></li>
-      </ul>
-    </section>
+      <section>
+        <h2>Platforms</h2>
+        <ul>
+          <li><a href="platforms/pc.html"><svg class="icon"><use href="/icons/platforms.svg#icon-pc" /></svg> PC</a></li>
+          <li><a href="platforms/mobile.html"><svg class="icon"><use href="/icons/platforms.svg#icon-mobile" /></svg> Mobile</a></li>
+        </ul>
+      </section>
 
-    <section>
-      <h2>Platforms</h2>
-      <ul>
-        <li><a href="platforms/pc.html"><svg class="icon"><use href="/icons/platforms.svg#icon-pc" /></svg> PC</a></li>
-        <li><a href="platforms/mobile.html"><svg class="icon"><use href="/icons/platforms.svg#icon-mobile" /></svg> Mobile</a></li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Ratings</h2>
-      <ul>
-        <li><a href="ratings/teen.html">Teen</a></li>
-      </ul>
-    </section>
-  </main>
-
-  <script src="/scripts/header.js"></script>
+      <section>
+        <h2>Ratings</h2>
+        <ul>
+          <li><a href="ratings/teen.html">Teen</a></li>
+        </ul>
+      </section>
+    </main>
+  </auth-provider>
 </body>
 </html>

@@ -12,32 +12,37 @@
   <script type="importmap">
   {
     "imports": {
-      "@unbndl/html": "https://unpkg.com/@unbndl/html"
+      "@unbndl/auth": "https://unpkg.com/@unbndl/auth",
+      "@unbndl/html": "https://unpkg.com/@unbndl/html",
+      "@unbndl/view": "https://unpkg.com/@unbndl/view"
     }
   }
   </script>
-</head>
-<body>
-
-  <header></header>
-
-  <main>
-    <h1>Overwatch</h1>
-    <game-info-list src="/data/overwatch.json"></game-info-list>
-
-    <p class="back-link"><a href="../index.html">← Back to Home</a></p>
-  </main>
-
-  <script src="/scripts/header.js"></script>
   <script type="module">
     import { define } from "@unbndl/html";
+    import { Auth } from "@unbndl/auth";
+    import { HeaderElement } from "/js/header.js";
     import { GameInfoElement } from "/js/game-info.js";
     import { GameInfoListElement } from "/js/game-info-list.js";
 
     define({
+      "auth-provider": Auth.Provider,
+      "app-header": HeaderElement,
       "game-info": GameInfoElement,
       "game-info-list": GameInfoListElement
     });
   </script>
+</head>
+<body>
+  <auth-provider>
+    <app-header></app-header>
+
+    <main>
+      <h1>Overwatch</h1>
+      <game-info-list src="/data/overwatch.json"></game-info-list>
+
+      <p class="back-link"><a href="../index.html">← Back to Home</a></p>
+    </main>
+  </auth-provider>
 </body>
 </html>

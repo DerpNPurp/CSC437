@@ -1,4 +1,6 @@
 import { html, css, shadow } from "@unbndl/html";
+import { createViewModel, fromAttributes } from "@unbndl/view";
+import { fromAuth } from "@unbndl/auth";
 
 function renderPlatform(p) {
   const iconHref = `/icons/platforms.svg#${p.icon}`;
@@ -19,24 +21,38 @@ export class GameInfoListElement extends HTMLElement {
     }
   `;
 
+  viewModel = createViewModel({
+    authenticated: false,
+    token: undefined,
+    gameData: null
+  }).with(fromAttributes(this), "src")
+    .with(fromAuth(this), "authenticated", "token");
+
+  get authorization() {
+    const $ = this.viewModel.toObject();
+    if ($.authenticated)
+      return { Authorization: `Bearer ${$.token}` };
+    else return {};
+  }
+
   constructor() {
     super();
     shadow(this).styles(GameInfoListElement.styles);
-  }
 
-  static observedAttributes = ["src"];
-
-  attributeChangedCallback(name, _, newValue) {
-    if (name === "src") {
-      this.hydrate(newValue).then((data) => {
-        const view = GameInfoListElement.render(data);
-        shadow(this).replace(view);
-      });
-    }
+    this.viewModel.createEffect(($) => {
+      if ($.authenticated && $.src) {
+        this.hydrate($.src).then((data) => {
+          if (data) {
+            const view = GameInfoListElement.render(data);
+            shadow(this).replace(view);
+          }
+        });
+      }
+    });
   }
 
   hydrate(src) {
-    return fetch(src)
+    return fetch(src, { headers: this.authorization })
       .then((response) => {
         if (response.status !== 200)
           throw `HTTP Status ${response.status}`;
