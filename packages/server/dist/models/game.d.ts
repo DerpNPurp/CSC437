@@ -4,6 +4,7 @@ export interface Platform {
     icon: string;
 }
 export interface Game {
+    _id?: string;
     company: string;
     companyHref: string;
     genre: string;

@@ -1,12 +1,7 @@
 import { css, html, shadow } from "@unbndl/html";
 import { createViewModel } from "@unbndl/view";
-import { fromAuth } from "@unbndl/auth";
-
-interface GameSummary {
-  _id: string;
-  company: string;
-  genre: string;
-}
+import { Store, fromStore } from "@unbndl/store";
+import { Model, GameSummary } from "../model.ts";
 
 export class HomeViewElement extends HTMLElement {
   static styles = css`
@@ -56,23 +51,20 @@ export class HomeViewElement extends HTMLElement {
   `;
 
   viewModel = createViewModel({
-    authenticated: false,
-    token: undefined as string | undefined
-  }).with(fromAuth(this), "authenticated", "token");
+    games: undefined as GameSummary[] | undefined
+  }).with(fromStore<Model>(this), "games");
 
   constructor() {
     super();
     shadow(this).styles(HomeViewElement.styles);
 
     this.viewModel.createEffect(($) => {
-      if ($.authenticated && $.token) {
-        fetch("/api/games", {
-          headers: { Authorization: `Bearer ${$.token}` }
-        })
-          .then((res) => res.json())
-          .then((games: GameSummary[]) => {
-            shadow(this).replace(HomeViewElement.render(games));
-          });
+      Store.dispatch(this, ["games/request", {}]);
+    });
+
+    this.viewModel.createEffect(($) => {
+      if ($.games) {
+        shadow(this).replace(HomeViewElement.render($.games));
       }
     });
   }

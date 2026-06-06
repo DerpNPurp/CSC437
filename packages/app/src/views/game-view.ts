@@ -1,23 +1,8 @@
 import { css, html, shadow } from "@unbndl/html";
 import { createViewModel, fromAttributes } from "@unbndl/view";
-import { fromAuth } from "@unbndl/auth";
-
-interface Platform {
-  name: string;
-  href: string;
-  icon: string;
-}
-
-interface GameData {
-  company: string;
-  companyHref: string;
-  genre: string;
-  genreHref: string;
-  genreIcon: string;
-  rating: string;
-  ratingHref: string;
-  platforms: Platform[];
-}
+import { Store, fromStore } from "@unbndl/store";
+import { Game } from "server/models";
+import { Model } from "../model.ts";
 
 export class GameViewElement extends HTMLElement {
   static styles = css`
@@ -75,36 +60,30 @@ export class GameViewElement extends HTMLElement {
   `;
 
   viewModel = createViewModel({
-    authenticated: false,
-    token: undefined as string | undefined,
-    gameId: undefined as string | undefined
-  }).withRenamed(
-    fromAttributes<{ "game-id": string }>(this),
-    { gameId: "game-id" }
-  ).with(fromAuth(this), "authenticated", "token");
+    gameId: undefined as string | undefined,
+    game: undefined as Game | undefined
+  })
+    .withRenamed(fromAttributes<{ "game-id": string }>(this), { gameId: "game-id" })
+    .with(fromStore<Model>(this), "game");
 
   constructor() {
     super();
     shadow(this).styles(GameViewElement.styles);
 
     this.viewModel.createEffect(($) => {
-      if ($.authenticated && $.token && $.gameId) {
-        fetch(`/api/games/${$.gameId}`, {
-          headers: { Authorization: `Bearer ${$.token}` }
-        })
-          .then((res) => {
-            if (res.status !== 200) throw `HTTP ${res.status}`;
-            return res.json();
-          })
-          .then((game: GameData) => {
-            shadow(this).replace(GameViewElement.render(game));
-          })
-          .catch((err) => console.log("Could not fetch game:", err));
+      if ($.gameId) {
+        Store.dispatch(this, ["game/request", { gameId: $.gameId }]);
+      }
+    });
+
+    this.viewModel.createEffect(($) => {
+      if ($.game) {
+        shadow(this).replace(GameViewElement.render($.game));
       }
     });
   }
 
-  static render(game: GameData) {
+  static render(game: Game) {
     const genreIconHref = `/icons/genres.svg#${game.genreIcon}`;
     return html`
       <main>
