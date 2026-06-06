@@ -5,6 +5,7 @@ export interface Platform {
 }
 export interface Game {
     _id?: string;
+    title: string;
     company: string;
     companyHref: string;
     genre: string;

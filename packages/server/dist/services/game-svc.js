@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 const gameSchema = new Schema({
+    title: String,
     company: String,
     companyHref: String,
     genre: String,
@@ -10,7 +11,19 @@ const gameSchema = new Schema({
     platforms: [{ name: String, href: String, icon: String }]
 }, { collection: "games" });
 const GameModel = model("Game", gameSchema);
-function index() {
+function index(filter) {
+    if (filter && Object.keys(filter).length > 0) {
+        const query = {};
+        if (filter.company)
+            query.company = filter.company;
+        if (filter.genre)
+            query.genre = filter.genre;
+        if (filter.rating)
+            query.rating = filter.rating;
+        if (filter.platform)
+            query["platforms.name"] = filter.platform;
+        return GameModel.find(query);
+    }
     return GameModel.find();
 }
 function get(id) {

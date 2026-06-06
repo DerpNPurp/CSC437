@@ -1,5 +1,5 @@
 import { Game } from "../models/index.ts";
-declare function index(): Promise<Game[]>;
+declare function index(filter?: Record<string, string>): Promise<Game[]>;
 declare function get(id: string): Promise<Game | undefined>;
 declare function create(json: Game): Promise<Game>;
 declare function update(id: String, game: Game): Promise<Game | undefined>;

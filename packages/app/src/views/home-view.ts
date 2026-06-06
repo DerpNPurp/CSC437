@@ -59,14 +59,14 @@ export class HomeViewElement extends HTMLElement {
     shadow(this).styles(HomeViewElement.styles);
 
     this.viewModel.createEffect(($) => {
-      Store.dispatch(this, ["games/request", {}]);
-    });
-
-    this.viewModel.createEffect(($) => {
       if ($.games) {
         shadow(this).replace(HomeViewElement.render($.games));
       }
     });
+  }
+
+  connectedCallback() {
+    Store.dispatch(this, ["games/request", {}]);
   }
 
   static render(games: GameSummary[]) {
@@ -77,7 +77,7 @@ export class HomeViewElement extends HTMLElement {
           <ul>
             ${games.map((g) => {
               const href = `/app/games/${g._id}`;
-              return html`<li><a href=${href}>${g.company} (${g.genre})</a></li>`;
+              return html`<li><a href=${href}>${g.title} (${g.genre})</a></li>`;
             })}
           </ul>
         </section>

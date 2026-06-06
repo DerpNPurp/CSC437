@@ -8,12 +8,33 @@ import update, { Cmd } from "./update.ts";
 import { HeaderElement } from "./components/app-header.ts";
 import { HomeViewElement } from "./views/home-view.ts";
 import { GameViewElement } from "./views/game-view.ts";
+import { FilteredViewElement } from "./views/filtered-view.ts";
 
 const routes = [
   {
     path: "/app/games/:id",
     auth: "protected",
     view: html`<game-view game-id=${($: { params: { id: string } }) => $.params.id}></game-view>`
+  },
+  {
+    path: "/app/companies/:name",
+    auth: "protected",
+    view: html`<filtered-view filter-by="company" filter-value=${($: { params: { name: string } }) => $.params.name}></filtered-view>`
+  },
+  {
+    path: "/app/genres/:name",
+    auth: "protected",
+    view: html`<filtered-view filter-by="genre" filter-value=${($: { params: { name: string } }) => $.params.name}></filtered-view>`
+  },
+  {
+    path: "/app/ratings/:name",
+    auth: "protected",
+    view: html`<filtered-view filter-by="rating" filter-value=${($: { params: { name: string } }) => $.params.name}></filtered-view>`
+  },
+  {
+    path: "/app/platforms/:name",
+    auth: "protected",
+    view: html`<filtered-view filter-by="platform" filter-value=${($: { params: { name: string } }) => $.params.name}></filtered-view>`
   },
   {
     path: "/app",
@@ -37,6 +58,7 @@ define({
   "app-header": HeaderElement,
   "home-view": HomeViewElement,
   "game-view": GameViewElement,
+  "filtered-view": FilteredViewElement,
   "router-switch": class AppSwitch extends Switch.Element {
     constructor() {
       super(routes as any);

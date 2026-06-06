@@ -3,6 +3,7 @@ import { Game } from "../models/index.ts";
 
 const gameSchema = new Schema<Game>(
   {
+    title: String,
     company: String,
     companyHref: String,
     genre: String,
@@ -17,7 +18,15 @@ const gameSchema = new Schema<Game>(
 
 const GameModel = model<Game>("Game", gameSchema);
 
-function index(): Promise<Game[]> {
+function index(filter?: Record<string, string>): Promise<Game[]> {
+  if (filter && Object.keys(filter).length > 0) {
+    const query: Record<string, string> = {};
+    if (filter.company) query.company = filter.company;
+    if (filter.genre) query.genre = filter.genre;
+    if (filter.rating) query.rating = filter.rating;
+    if (filter.platform) query["platforms.name"] = filter.platform;
+    return GameModel.find(query);
+  }
   return GameModel.find();
 }
 

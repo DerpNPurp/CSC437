@@ -17,7 +17,8 @@
     "start:app": "cross-env STATIC=../app/dist npm run start",
     "start:node": "node dist/index.js",
     "start:proto": "cross-env STATIC=../proto/public npm run start",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "seed": "npx tsc && node dist/seed.js"
   },
   "license": "ISC",
   "author": "",

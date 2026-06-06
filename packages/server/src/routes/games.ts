@@ -4,8 +4,15 @@ import Games from "../services/game-svc.ts";
 
 const router = express.Router();
 
-router.get("/", (_, res: Response) => {
-  Games.index()
+router.get("/", (req: Request, res: Response) => {
+  const { company, genre, rating, platform } = req.query as Record<string, string>;
+  const filter: Record<string, string> = {};
+  if (company) filter.company = company;
+  if (genre) filter.genre = genre;
+  if (rating) filter.rating = rating;
+  if (platform) filter.platform = platform;
+
+  Games.index(filter)
     .then((list: Game[]) => res.send(list))
     .catch((err) => res.status(500).send(err));
 });

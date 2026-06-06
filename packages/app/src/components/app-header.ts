@@ -29,8 +29,6 @@ export class HeaderElement extends HTMLElement {
       display: flex;
       align-items: center;
       gap: var(--space-small);
-      border-left: 2px solid rgba(250, 249, 246, 0.3);
-      padding-left: var(--space-small);
     }
     p {
       margin: 0;
@@ -62,6 +60,16 @@ export class HeaderElement extends HTMLElement {
       padding: 0.25rem 0.5rem;
       font-family: var(--font-body);
     }
+    .dark-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--color-text-inverted);
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-left: 2px solid rgba(250, 249, 246, 0.3);
+      padding-left: var(--space-small);
+    }
   `;
 
   viewModel = createViewModel({
@@ -74,6 +82,10 @@ export class HeaderElement extends HTMLElement {
       <h1><a href="/app">Game Database</a></h1>
       <nav class=${($: HeaderState) => $.authenticated ? "logged-in" : "logged-out"}>
         <p>Hello, ${($: HeaderState) => $.username || "traveler"}</p>
+        <label class="dark-toggle">
+          <input type="checkbox" id="dark-toggle" autocomplete="off" />
+          Dark mode
+        </label>
         <menu>
           <li class="when-signed-in">
             <button>Sign Out</button>
@@ -93,6 +105,12 @@ export class HeaderElement extends HTMLElement {
       .replace(this.viewModel.render(this.view))
       .delegate(".when-signed-in button", {
         click: () => this.signout()
+      })
+      .delegate("#dark-toggle", {
+        change: (ev: Event) => {
+          const checked = (ev.target as HTMLInputElement).checked;
+          document.body.classList.toggle("dark-mode", checked);
+        }
       });
   }
 
