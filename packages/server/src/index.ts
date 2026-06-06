@@ -1,4 +1,6 @@
 import express, { Request, Response } from "express";
+import fs from "node:fs/promises";
+import path from "path";
 import { connect } from "./services/mongo.ts";
 import games from "./routes/games.ts";
 import auth from "./routes/auth.ts";
@@ -19,6 +21,13 @@ app.get("/hello", (req: Request, res: Response) => {
 
 app.use("/auth", auth);
 app.use("/api/games", authenticateUser, games);
+
+app.use("/app", (req: Request, res: Response) => {
+  const indexHtml = path.resolve(staticDir, "index.html");
+  fs.readFile(indexHtml, { encoding: "utf8" }).then((html) =>
+    res.send(html)
+  );
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

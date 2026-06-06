@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login - Game Database</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,700;1,400&family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/page.css" />
+    <script type="module" src="/src/login-main.ts"></script>
+    <style>
+      body.page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--space-large);
+        gap: var(--space-medium);
+      }
+      .card {
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        padding: var(--space-large);
+        width: 100%;
+        max-width: 360px;
+      }
+    </style>
+  </head>
+  <body class="page">
+    <auth-provider>
+      <h2>User Login</h2>
+      <main class="card">
+        <login-form api="/auth/login">
+          <label>
+            <span>Username:</span>
+            <input name="username" autocomplete="off" />
+          </label>
+          <label>
+            <span>Password:</span>
+            <input type="password" name="password" />
+          </label>
+        </login-form>
+      </main>
+    </auth-provider>
+  </body>
+</html>
