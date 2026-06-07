@@ -19,6 +19,8 @@ export default function update(
     case "game/request": {
       const p = payload as { gameId: string };
       if (model.game?._id === p.gameId) break;
+      // ThenUpdate returns [new model state, promise] to update the model and start a fetch at the same time
+      // when the promise resolves it returns a Cmd that gets passed back through update()
       return [
         { ...model },
         requestGame(p, user)
@@ -51,6 +53,7 @@ export default function update(
       return { ...model, filteredGames: p.games };
     }
     case "game/save": {
+      // game/save has a third element for callbacks so destructure the full array instead of using [type, payload]
       const [, p, cbs] = message as [
         "game/save",
         { gameId: string; game: Game },
@@ -59,6 +62,7 @@ export default function update(
       return [model, saveGame(p, user, cbs)];
     }
     default: {
+      // assigning to never makes typescript error if a message type gets added without a handler here
       const unhandled: never = type;
       throw new Error(`Unhandled message "${unhandled}"`);
     }

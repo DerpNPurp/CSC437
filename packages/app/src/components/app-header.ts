@@ -115,6 +115,7 @@ export class HeaderElement extends HTMLElement {
   }
 
   signout() {
+    // same as login-form, bubble auth:message up to auth-provider to handle clearing the token
     const event = new CustomEvent("auth:message", {
       bubbles: true,
       composed: true,

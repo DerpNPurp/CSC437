@@ -30,6 +30,9 @@ function create(username: string, password: string): Promise<Credential> {
       if (found.length) throw `Username exists: ${username}`;
     })
     .then(() =>
+      // genSalt makes a random value that gets mixed into the password before hashing
+      // so two users with the same password still end up with different hashes in the db
+      // 10 controls how slow the hashing runs
       bcrypt
         .genSalt(10)
         .then((salt: string) => bcrypt.hash(password, salt))

@@ -50,6 +50,7 @@ router.post("/login", (req: Request, res: Response) => {
   }
 });
 
+// jwt.sign uses callbacks so wrap it in a promise to use .then()
 function generateAccessToken(username: string): Promise<String> {
   return new Promise((resolve, reject) => {
     jwt.sign(
@@ -70,11 +71,13 @@ export function authenticateUser(
   next: NextFunction
 ) {
   const authHeader = req.headers["authorization"];
+  // authorization header is "Bearer <token>" so split and take index 1 to get just the token
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     res.status(401).end();
   } else {
+    // decoded is null if the token is bad or expired, only call next() if it exists to let the request through
     jwt.verify(token, TOKEN_SECRET, (error, decoded) => {
       if (decoded) next();
       else res.status(401).end();

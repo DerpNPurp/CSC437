@@ -5,6 +5,9 @@ export interface GameSummary {
   title: string;
   company: string;
   genre: string;
+  genreIcon: string;
+  rating: string;
+  platforms: Array<{ name: string; icon: string }>;
 }
 
 export interface Model {

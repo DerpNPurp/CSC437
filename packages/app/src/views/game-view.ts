@@ -95,11 +95,13 @@ export class GameViewElement extends HTMLElement {
   viewModel = createViewModel<GameViewModel>({
     mode: "view" as GameMode
   })
+    // withRenamed maps the kebab-case attribute "game-id" to the camelCase property gameId
     .withRenamed(fromAttributes<{ "game-id": string }>(this), { gameId: "game-id" })
     .with(fromStore<Model>(this), "game");
 
   constructor() {
     super();
+    // delegate listens at the shadow root and fires when events bubble up from matching elements
     shadow(this)
       .styles(GameViewElement.styles)
       .delegate("#edit-btn", {
@@ -219,6 +221,7 @@ export class GameViewElement extends HTMLElement {
     const existingGame = this.viewModel.$.game;
 
     if (gameId && existingGame) {
+      // spread existingGame first to keep fields not in the form like platforms, then overwrite with formData
       const updatedGame = { ...existingGame, ...formData };
       Store.dispatch(this, [
         "game/save",

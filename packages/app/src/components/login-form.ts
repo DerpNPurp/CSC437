@@ -55,6 +55,8 @@ export class LoginFormElement extends HTMLElement {
       })
       .then((json) => {
         const { token } = json;
+        // fire a custom event up to auth-provider to handle the token instead of doing it here
+        // composed: true lets it cross shadow dom boundaries
         const customEvent = new CustomEvent("auth:message", {
           bubbles: true,
           composed: true,

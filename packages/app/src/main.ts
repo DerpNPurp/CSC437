@@ -47,6 +47,9 @@ const routes = [
   }
 ];
 
+// Store.Provider has to be subclassed to pass in the types and the update function
+// same for AppSwitch, routes get passed in the constructor
+// as any on routes because the types dont perfectly match but it still works
 define({
   "auth-provider": Auth.Provider,
   "history-provider": BrowserHistory.Provider,

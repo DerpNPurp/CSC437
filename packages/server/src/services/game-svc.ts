@@ -24,6 +24,7 @@ function index(filter?: Record<string, string>): Promise<Game[]> {
     if (filter.company) query.company = filter.company;
     if (filter.genre) query.genre = filter.genre;
     if (filter.rating) query.rating = filter.rating;
+    // dot notation to search inside the nested platforms array by name
     if (filter.platform) query["platforms.name"] = filter.platform;
     return GameModel.find(query);
   }
