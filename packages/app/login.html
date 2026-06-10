@@ -18,6 +18,22 @@
         padding: var(--space-large);
         gap: var(--space-medium);
       }
+      .login-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-large);
+        width: 100%;
+      }
+      h2 {
+        text-align: center;
+        width: 100%;
+      }
+      .cat-gif {
+        width: 250px;
+        height: auto;
+        flex-shrink: 0;
+      }
       .card {
         background-color: var(--color-surface);
         border: 1px solid var(--color-border);
@@ -30,18 +46,22 @@
   <body class="page">
     <auth-provider>
       <h2>User Login</h2>
-      <main class="card">
-        <login-form api="/auth/login">
-          <label>
-            <span>Username:</span>
-            <input name="username" autocomplete="off" />
-          </label>
-          <label>
-            <span>Password:</span>
-            <input type="password" name="password" />
-          </label>
-        </login-form>
-      </main>
+      <div class="login-row">
+        <img class="cat-gif" src="/yapapa-cat.gif" alt="cat" />
+        <main class="card">
+          <login-form api="/auth/login">
+            <label>
+              <span>Username:</span>
+              <input name="username" autocomplete="off" />
+            </label>
+            <label>
+              <span>Password:</span>
+              <input type="password" name="password" />
+            </label>
+          </login-form>
+        </main>
+        <img class="cat-gif" src="/yapapa-cat.gif" alt="cat" />
+      </div>
     </auth-provider>
   </body>
 </html>

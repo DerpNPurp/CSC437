@@ -20,6 +20,7 @@ function index(filter) {
             query.genre = filter.genre;
         if (filter.rating)
             query.rating = filter.rating;
+        // dot notation to search inside the nested platforms array by name
         if (filter.platform)
             query["platforms.name"] = filter.platform;
         return GameModel.find(query);

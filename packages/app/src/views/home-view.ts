@@ -12,15 +12,18 @@ export class HomeViewElement extends HTMLElement {
     main {
       padding: var(--space-large);
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      /* games takes up the bigger left chunk, sidebar takes the right */
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-medium);
+      align-items: start;
+    }
+    /* stack the 4 smaller sections on the right */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
       gap: var(--space-medium);
     }
-    @media (max-width: 900px) {
-      main {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 550px) {
+    @media (max-width: 700px) {
       main {
         grid-template-columns: 1fr;
       }
@@ -59,6 +62,16 @@ export class HomeViewElement extends HTMLElement {
       width: 1.5em;
       vertical-align: middle;
       fill: currentColor;
+    }
+    .cat-gif {
+      width: 300px;
+      height: auto;
+      display: block;
+      margin: var(--space-medium) auto 0;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
     }
   `;
 
@@ -99,53 +112,61 @@ export class HomeViewElement extends HTMLElement {
 
     return html`
       <main>
-        <section>
-          <h2>Games</h2>
-          <ul>
-            ${games.map((g) => {
-              const href = `/app/games/${g._id}`;
-              return html`<li><a href=${href}>${g.title} (${g.genre})</a></li>`;
-            })}
-          </ul>
-        </section>
-        <section>
-          <h2>Companies</h2>
-          <ul>
-            ${companies.map((c) => {
-              const href = `/app/companies/${encodeURIComponent(c)}`;
-              return html`<li><a href=${href}>${c}</a></li>`;
-            })}
-          </ul>
-        </section>
-        <section>
-          <h2>Genres</h2>
-          <ul>
-            ${genres.map(({ name, icon }) => {
-              const href = `/app/genres/${encodeURIComponent(name)}`;
-              const iconHref = `/icons/genres.svg#${icon}`;
-              return html`<li><a href=${href}><svg class="icon"><use href=${iconHref}></use></svg> ${name}</a></li>`;
-            })}
-          </ul>
-        </section>
-        <section>
-          <h2>Platforms</h2>
-          <ul>
-            ${platforms.map((p) => {
-              const href = `/app/platforms/${encodeURIComponent(p.name)}`;
-              const iconHref = `/icons/platforms.svg#${p.icon}`;
-              return html`<li><a href=${href}><svg class="icon"><use href=${iconHref}></use></svg> ${p.name}</a></li>`;
-            })}
-          </ul>
-        </section>
-        <section>
-          <h2>Ratings</h2>
-          <ul>
-            ${ratings.map((r) => {
-              const href = `/app/ratings/${encodeURIComponent(r)}`;
-              return html`<li><a href=${href}>${r}</a></li>`;
-            })}
-          </ul>
-        </section>
+        <!-- games on the left by itself -->
+        <div>
+          <section>
+            <h2>Games</h2>
+            <ul>
+              ${games.map((g) => {
+                const href = `/app/games/${g._id}`;
+                return html`<li><a href=${href}>${g.title} (${g.genre})</a></li>`;
+              })}
+            </ul>
+          </section>
+          <img class="cat-gif" src="/yapapa-cat.gif" alt="cat" />
+        </div>
+
+        <!-- everything else stacked on the right -->
+        <div class="sidebar">
+          <section>
+            <h2>Companies</h2>
+            <ul>
+              ${companies.map((c) => {
+                const href = `/app/companies/${encodeURIComponent(c)}`;
+                return html`<li><a href=${href}>${c}</a></li>`;
+              })}
+            </ul>
+          </section>
+          <section>
+            <h2>Genres</h2>
+            <ul>
+              ${genres.map(({ name, icon }) => {
+                const href = `/app/genres/${encodeURIComponent(name)}`;
+                const iconHref = `/icons/genres.svg#${icon}`;
+                return html`<li><a href=${href}><svg class="icon"><use href=${iconHref}></use></svg> ${name}</a></li>`;
+              })}
+            </ul>
+          </section>
+          <section>
+            <h2>Platforms</h2>
+            <ul>
+              ${platforms.map((p) => {
+                const href = `/app/platforms/${encodeURIComponent(p.name)}`;
+                const iconHref = `/icons/platforms.svg#${p.icon}`;
+                return html`<li><a href=${href}><svg class="icon"><use href=${iconHref}></use></svg> ${p.name}</a></li>`;
+              })}
+            </ul>
+          </section>
+          <section>
+            <h2>Ratings</h2>
+            <ul>
+              ${ratings.map((r) => {
+                const href = `/app/ratings/${encodeURIComponent(r)}`;
+                return html`<li><a href=${href}>${r}</a></li>`;
+              })}
+            </ul>
+          </section>
+        </div>
       </main>
     `;
   }

@@ -16,6 +16,9 @@ app.get("/hello", (req, res) => {
 });
 app.use("/auth", auth);
 app.use("/api/games", authenticateUser, games);
+// sends index.html for any /app/* url so the js router can take over
+// has to be after the api routes or those would get caught here too
+// without this refreshing on a route like /app/games/123 would 404
 app.use("/app", (req, res) => {
     const indexHtml = path.resolve(staticDir, "index.html");
     fs.readFile(indexHtml, { encoding: "utf8" }).then((html) => res.send(html));
